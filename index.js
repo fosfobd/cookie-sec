@@ -5,13 +5,16 @@ const express = require('express');
 
 const app = express();
 const port = 3001;
-const authCookie = 'pablov'; // change this value
+
+// change these values
+const cookieName = 'admin';
+const cookieValue = 'fosfo';
 
 app.use(cookieParser());
 
 // cookie auth middleware
 app.use((req, res, next) => {
-  (req.cookies?.vincoadmin === authCookie) ? next() : res.send('unauthorized');
+  (req.cookies?.[cookieName] === cookieValue) ? next() : res.send('unauthorized');
 });
 
 app.use('/', express.static(path.join( __dirname, 'html'), {extensions:['html']}));
